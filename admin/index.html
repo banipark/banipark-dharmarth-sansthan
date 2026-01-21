@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager - Banipark Dharmarth Sansthan</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <!-- Include Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            // Check for recovery token in URL hash
+            const hasRecoveryToken = window.location.hash.includes('recovery_token=');
+            
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+                
+                // If recovery token is present, open the recover modal
+                if (hasRecoveryToken) {
+                    // Use multiple attempts to ensure the modal opens
+                    setTimeout(() => {
+                        if (window.netlifyIdentity) {
+                            window.netlifyIdentity.open("recover");
+                        }
+                    }, 100);
+                    
+                    setTimeout(() => {
+                        if (window.netlifyIdentity && !document.querySelector('.netlify-identity-widget')) {
+                            window.netlifyIdentity.open("recover");
+                        }
+                    }, 500);
+                }
+            });
+            
+            // Also check on DOMContentLoaded and load events
+            document.addEventListener('DOMContentLoaded', function() {
+                if (hasRecoveryToken && window.netlifyIdentity) {
+                    setTimeout(() => {
+                        window.netlifyIdentity.open("recover");
+                    }, 300);
+                }
+            });
+            
+            window.addEventListener('load', function() {
+                if (hasRecoveryToken && window.netlifyIdentity) {
+                    setTimeout(() => {
+                        window.netlifyIdentity.open("recover");
+                    }, 400);
+                }
+            });
+            
+            // Initialize the widget
+            window.netlifyIdentity.init();
+        }
+    </script>
+</body>
+</html>

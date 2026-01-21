@@ -1,0 +1,16 @@
+{
+  "images": [
+    {
+      "image": "/images/faculty/1.jpeg",
+      "alt": "Faculty Member",
+      "name": "",
+      "order": 1
+    },
+    {
+      "image": "/images/faculty/2.jpeg",
+      "alt": "Faculty Member",
+      "name": "",
+      "order": 2
+    }
+  ]
+}

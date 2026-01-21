@@ -1,0 +1,110 @@
+backend:
+  name: git-gateway
+  branch: main # Change to 'master' if your default branch is master
+  publish_mode: editorial_workflow
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  # Company Details Collection
+  - name: "company"
+    label: "Company Details"
+    files:
+      - file: "data/company/company.json"
+        label: "Company Information"
+        name: "company"
+        fields:
+          - { label: "Phone Number", name: "phone", widget: "string", required: true, hint: "e.g., 9509226208" }
+          - { label: "WhatsApp Number", name: "whatsapp", widget: "string", required: true, hint: "e.g., 9509226208 (will automatically add country code 91)" }
+          - { label: "Email Address", name: "email", widget: "string", required: true, hint: "e.g., mrdcinfojpr@gmail.com" }
+          - { label: "Address", name: "address", widget: "string", required: true, hint: "Full address" }
+          - { label: "Address Location Link", name: "addressLink", widget: "string", required: true, hint: "Google Maps link" }
+          - { label: "Facebook Link", name: "facebook", widget: "string", required: false, hint: "Full Facebook page URL" }
+          - { label: "Instagram Link", name: "instagram", widget: "string", required: false, hint: "Full Instagram profile URL" }
+          - { label: "YouTube Channel Link", name: "youtube", widget: "string", required: false, hint: "Full YouTube channel URL" }
+          - { label: "Google Profile Link", name: "google", widget: "string", required: false, hint: "Google Maps/Google Business link" }
+
+  # Gallery Images Collection
+  - name: "gallery"
+    label: "Gallery Images"
+    files:
+      - file: "data/gallery/gallery.json"
+        label: "Gallery Images"
+        name: "gallery"
+        media_folder: "images/gallery"
+        public_folder: "/images/gallery"
+        fields:
+          - label: "Gallery Images"
+            name: "images"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: false
+            fields:
+              - { label: "Image", name: "image", widget: "image", required: true }
+              - { label: "Alt Text", name: "alt", widget: "string", default: "Banipark Dharmarth Sansthan Facility", required: false }
+              - { label: "Order", name: "order", widget: "number", default: 0, value_type: "int", required: false }
+
+  # Trustee Images Collection
+  - name: "trustee"
+    label: "Trustee Images"
+    files:
+      - file: "data/trustee/trustee.json"
+        label: "Trustee Images"
+        name: "trustees"
+        media_folder: "images/trustee"
+        public_folder: "/images/trustee"
+        fields:
+          - label: "Trustee Images"
+            name: "images"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: false
+            fields:
+              - { label: "Image", name: "image", widget: "image", required: true }
+              - { label: "Alt Text", name: "alt", widget: "string", default: "Trustee Member", required: false }
+              - { label: "Name", name: "name", widget: "string", required: false }
+              - { label: "Order", name: "order", widget: "number", default: 0, value_type: "int", required: false }
+
+  # Faculty Images Collection
+  - name: "faculty"
+    label: "Faculty Images"
+    files:
+      - file: "data/faculty/faculty.json"
+        label: "Faculty Images"
+        name: "faculty"
+        media_folder: "images/faculty"
+        public_folder: "/images/faculty"
+        fields:
+          - label: "Faculty Images"
+            name: "images"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: false
+            fields:
+              - { label: "Image", name: "image", widget: "image", required: true }
+              - { label: "Alt Text", name: "alt", widget: "string", default: "Faculty Member", required: false }
+              - { label: "Name", name: "name", widget: "string", required: false }
+              - { label: "Order", name: "order", widget: "number", default: 0, value_type: "int", required: false }
+
+  # Video Gallery Collection
+  - name: "video-gallery"
+    label: "Video Gallery"
+    files:
+      - file: "data/video-gallery/video-gallery.json"
+        label: "Video Gallery"
+        name: "video-gallery"
+        fields:
+          - label: "Videos"
+            name: "videos"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: false
+            fields:
+              - { label: "YouTube URL", name: "url", widget: "string", required: true, hint: "Supports: youtube.com/watch?v=, youtu.be/, youtube.com/shorts/, youtube.com/embed/" }
+              - { label: "Video Title", name: "title", widget: "string", default: "Banipark Dharmarth Sansthan Video", required: false }
+              - { label: "Order", name: "order", widget: "number", default: 0, value_type: "int", required: false }

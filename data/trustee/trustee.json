@@ -1,0 +1,46 @@
+{
+  "images": [
+    {
+      "image": "/images/trustee/1.jpeg",
+      "alt": "Trustee Member",
+      "name": "",
+      "order": 1
+    },
+    {
+      "image": "/images/trustee/2.jpeg",
+      "alt": "Trustee Member",
+      "name": "",
+      "order": 2
+    },
+    {
+      "image": "/images/trustee/3.jpeg",
+      "alt": "Trustee Member",
+      "name": "",
+      "order": 3
+    },
+    {
+      "image": "/images/trustee/4.jpeg",
+      "alt": "Trustee Member",
+      "name": "",
+      "order": 4
+    },
+    {
+      "image": "/images/trustee/5.jpeg",
+      "alt": "Trustee Member",
+      "name": "",
+      "order": 5
+    },
+    {
+      "image": "/images/trustee/6.jpeg",
+      "alt": "Trustee Member",
+      "name": "",
+      "order": 6
+    },
+    {
+      "image": "/images/trustee/7.jpeg",
+      "alt": "Trustee Member",
+      "name": "",
+      "order": 7
+    }
+  ]
+}
