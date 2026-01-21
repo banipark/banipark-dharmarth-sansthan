@@ -43,8 +43,12 @@ function populateCompanyDetails() {
     document.querySelectorAll('[data-company="phone"]').forEach(el => {
         if (el.tagName === 'A') {
             el.href = `tel:${companyDetails.phone}`;
-            // Always update textContent - the data-company attribute indicates it should be dynamic
-            el.textContent = companyDetails.phone;
+            // Update textContent if element has no child elements (no icons/content)
+            // If it has icons/children, preserve them and only update href
+            const hasChildElements = el.children.length > 0;
+            if (!hasChildElements) {
+                el.textContent = companyDetails.phone;
+            }
         } else {
             el.textContent = companyDetails.phone;
         }
