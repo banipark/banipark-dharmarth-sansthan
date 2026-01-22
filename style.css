@@ -5691,3 +5691,192 @@ textarea.form-control {
         font-size: 1rem;
     }
 }
+
+/* ============================================
+   404 Error Page Styles
+   ============================================ */
+
+.error-404-section {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 160px 20px;
+}
+
+.error-404-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('images/section-bg.jpeg') center/cover;
+    opacity: 0.08;
+    z-index: 0;
+}
+
+.error-404-container {
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.error-404-content {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 24px;
+    padding: 80px 50px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.error-404-icon {
+    font-size: 72px;
+    color: #667eea;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.error-404-number {
+    font-size: 160px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 30px;
+    font-family: 'Poppins', sans-serif;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+.error-404-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 24px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.5px;
+}
+
+.error-404-message {
+    font-size: 17px;
+    color: #6c757d;
+    margin-bottom: 50px;
+    line-height: 1.7;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error-404-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.error-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.error-btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+}
+
+.error-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+}
+
+.error-btn-secondary {
+    background: white;
+    color: #667eea;
+    border-color: #667eea;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.error-btn-secondary:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+}
+
+@media (max-width: 768px) {
+    .error-404-section {
+        padding: 120px 20px;
+        min-height: calc(100vh - 60px);
+    }
+    
+    .error-404-content {
+        padding: 50px 30px;
+        border-radius: 20px;
+    }
+    
+    .error-404-icon {
+        font-size: 56px;
+        margin-bottom: 30px;
+    }
+    
+    .error-404-number {
+        font-size: 120px;
+        margin-bottom: 24px;
+    }
+    
+    .error-404-title {
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+    
+    .error-404-message {
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+    
+    .error-404-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .error-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 28px;
+    }
+}

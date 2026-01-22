@@ -4,7 +4,75 @@ Allow: /
 # Sitemap
 Sitemap: https://baniparkdharmarthsansthan.com/sitemap.xml
 
-# Disallow admin or private areas if any
-# Disallow: /admin/
-# Disallow: /private/
+# Disallow admin or private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.git/
+Disallow: /.env
+Disallow: /config.php
+Disallow: /database.php
 
+# Block malicious patterns and common attack paths
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /administrator/
+Disallow: /phpmyadmin/
+Disallow: /mysql/
+Disallow: /cgi-bin/
+Disallow: /bin/
+Disallow: /etc/
+Disallow: /var/
+Disallow: /tmp/
+Disallow: /root/
+Disallow: /system/
+Disallow: /console/
+Disallow: /manager/
+Disallow: /backup/
+Disallow: /backups/
+
+# Block suspicious file extensions
+Disallow: /*.php$
+Disallow: /*.asp$
+Disallow: /*.aspx$
+Disallow: /*.jsp$
+Disallow: /*.cgi$
+Disallow: /*.pl$
+Disallow: /*.sh$
+Disallow: /*.exe$
+Disallow: /*.bat$
+Disallow: /*.sql$
+Disallow: /*.bak$
+Disallow: /*.old$
+Disallow: /*.tmp$
+Disallow: /*.log$
+
+# Block query parameters with malicious patterns
+Disallow: /*?*cmd=*
+Disallow: /*?*exec=*
+Disallow: /*?*eval=*
+Disallow: /*?*system=*
+Disallow: /*?*shell=*
+Disallow: /*?*union=*
+Disallow: /*?*select=*
+Disallow: /*?*insert=*
+Disallow: /*?*delete=*
+Disallow: /*?*drop=*
+Disallow: /*?*update=*
+Disallow: /*?*script=*
+Disallow: /*?*alert=*
+Disallow: /*?*javascript:*
+Disallow: /*?*onerror=*
+Disallow: /*?*onload=*
+
+# Block encoded path traversal attempts
+Disallow: /%2e%2e/
+Disallow: /..%2f
+Disallow: /%2f%2e%2e%2f
+
+# Allow legitimate paths
+Allow: /images/
+Allow: /js/
+Allow: /data/
+Allow: /.well-known/

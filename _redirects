@@ -1,0 +1,75 @@
+# Netlify Redirects and Security Rules
+# Block malicious requests at the edge
+
+# Block common attack patterns and malicious paths
+/wp-admin/*  /404.html 404
+/wp-login.php  /404.html 404
+/wp-content/*  /404.html 404
+/wp-includes/*  /404.html 404
+/administrator/*  /404.html 404
+/admin.php  /404.html 404
+/admin/*  /admin/ 200  # Allow actual admin panel
+/phpmyadmin/*  /404.html 404
+/mysql/*  /404.html 404
+/.env  /404.html 404
+/.git/*  /404.html 404
+/config.php  /404.html 404
+/database.php  /404.html 404
+/phpinfo.php  /404.html 404
+/shell.php  /404.html 404
+/cmd.php  /404.html 404
+/eval.php  /404.html 404
+/backup/*  /404.html 404
+/backups/*  /404.html 404
+/.well-known/*  /.well-known/* 200  # Allow legitimate well-known paths
+/.well-known/security.txt  /.well-known/security.txt 200
+
+# Note: Query parameter blocking is handled at application level
+# Netlify redirects don't support query parameter matching directly
+# These patterns are blocked via robots.txt and should be handled by your application
+
+# Block common exploit paths
+/cgi-bin/*  /404.html 404
+/bin/*  /404.html 404
+/etc/*  /404.html 404
+/var/*  /404.html 404
+/tmp/*  /404.html 404
+/root/*  /404.html 404
+/system/*  /404.html 404
+/api/*  /404.html 404  # Block if you don't have an API
+/console/*  /404.html 404
+/manager/*  /404.html 404
+/server-status  /404.html 404
+/server-info  /404.html 404
+
+# Block suspicious file extensions in URLs
+/*.php  /404.html 404  # Block PHP files (static site)
+/*.asp  /404.html 404
+/*.aspx  /404.html 404
+/*.jsp  /404.html 404
+/*.cgi  /404.html 404
+/*.pl  /404.html 404
+/*.sh  /404.html 404
+/*.exe  /404.html 404
+/*.bat  /404.html 404
+/*.sql  /404.html 404
+/*.bak  /404.html 404
+/*.old  /404.html 404
+/*.tmp  /404.html 404
+/*.log  /404.html 404
+
+# Block double slashes and encoded attacks
+//*  /404.html 404
+/%2e%2e/*  /404.html 404
+/..%2f*  /404.html 404
+/%2f%2e%2e%2f*  /404.html 404
+
+# Security headers (configure in netlify.toml or Netlify dashboard)
+# X-Frame-Options: DENY
+# X-Content-Type-Options: nosniff
+# X-XSS-Protection: 1; mode=block
+# Referrer-Policy: strict-origin-when-cross-origin
+# Content-Security-Policy: default-src 'self'
+
+# Note: The catch-all 404 redirect is handled automatically by Netlify
+# when a 404.html file exists in the root directory

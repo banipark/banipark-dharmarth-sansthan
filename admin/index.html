@@ -58,6 +58,221 @@
             // Initialize the widget
             window.netlifyIdentity.init();
         }
+
+        // Generic script to add new list items at the top for all collections
+        (function() {
+            'use strict';
+            
+            const observers = new Map(); // Track observers for each list container
+            const processedContainers = new Set(); // Track which containers we've already set up
+            
+            // Find all list containers in the page
+            function findAllListContainers() {
+                const containers = [];
+                
+                // Try multiple selectors to find list widgets
+                const selectors = [
+                    '[class*="ListControl"]',
+                    '[class*="list-control"]',
+                    'fieldset[class*="List"]',
+                    '[data-testid*="list"]'
+                ];
+                
+                selectors.forEach(selector => {
+                    const elements = document.querySelectorAll(selector);
+                    elements.forEach(el => {
+                        // Check if this is a list widget (has an "Add" button or list items)
+                        const hasAddButton = el.querySelector('button')?.textContent?.toLowerCase().includes('add');
+                        const hasListItems = el.querySelectorAll('[class*="ListItem"], [class*="list-item"], fieldset > div').length > 0;
+                        
+                        if ((hasAddButton || hasListItems) && !processedContainers.has(el)) {
+                            containers.push(el);
+                        }
+                    });
+                });
+                
+                return containers;
+            }
+            
+            // Get all list items from a container
+            function getListItems(container) {
+                const itemSelectors = [
+                    '[class*="ListItem"]',
+                    '[class*="list-item"]',
+                    'fieldset[class*="List"] > div',
+                    'fieldset > div',
+                    'div[class*="ObjectControl"]',
+                    'div[class*="NestedObjectControl"]'
+                ];
+                
+                for (const selector of itemSelectors) {
+                    const items = Array.from(container.querySelectorAll(selector));
+                    if (items.length > 0) {
+                        return items;
+                    }
+                }
+                return [];
+            }
+            
+            // Check if an item is newly added (empty)
+            function isNewItem(item) {
+                // Check for empty file inputs
+                const fileInputs = item.querySelectorAll('input[type="file"]');
+                const hasEmptyFile = Array.from(fileInputs).some(input => !input.value);
+                
+                // Check for empty text inputs (but ignore order fields which might have default 0)
+                const textInputs = item.querySelectorAll('input[type="text"]:not([name*="order"]), textarea');
+                const hasEmptyText = Array.from(textInputs).some(input => !input.value || input.value.trim() === '');
+                
+                // Check for empty URL inputs (for video gallery)
+                const urlInputs = item.querySelectorAll('input[type="url"], input[name*="url"]');
+                const hasEmptyUrl = Array.from(urlInputs).some(input => !input.value || input.value.trim() === '');
+                
+                return hasEmptyFile || hasEmptyText || hasEmptyUrl;
+            }
+            
+            // Move newly added item to top
+            function moveNewItemToTop(listContainer) {
+                if (!listContainer) return;
+                
+                const allItems = getListItems(listContainer);
+                
+                if (allItems.length < 2) return;
+                
+                // The last item is usually the newly added one
+                const lastItem = allItems[allItems.length - 1];
+                const firstItem = allItems[0];
+                
+                // Check if last item is newly added (empty)
+                if (isNewItem(lastItem) && lastItem !== firstItem) {
+                    // Move to top
+                    if (listContainer.firstChild) {
+                        listContainer.insertBefore(lastItem, firstItem);
+                        
+                        // Scroll and focus
+                        setTimeout(function() {
+                            lastItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            
+                            // Focus on the first input field
+                            const inputs = lastItem.querySelectorAll('input[type="file"], input[type="url"], input[type="text"], textarea');
+                            if (inputs.length > 0) {
+                                const firstInput = inputs[0];
+                                setTimeout(function() {
+                                    firstInput.focus();
+                                    // If it's a file input, trigger the file dialog
+                                    if (firstInput.type === 'file') {
+                                        firstInput.click();
+                                    }
+                                }, 200);
+                            }
+                        }, 100);
+                    }
+                }
+            }
+            
+            // Setup observer and handlers for a list container
+            function setupListContainer(listContainer) {
+                if (processedContainers.has(listContainer)) return;
+                processedContainers.add(listContainer);
+                
+                // Watch for new items being added
+                const observer = new MutationObserver(function(mutations) {
+                    let shouldMove = false;
+                    
+                    mutations.forEach(function(mutation) {
+                        mutation.addedNodes.forEach(function(node) {
+                            if (node.nodeType === 1) {
+                                // Check if a new list item was added
+                                const hasListStructure = node.querySelector && (
+                                    node.querySelector('input, textarea') ||
+                                    node.matches('[class*="ListItem"]') ||
+                                    node.matches('[class*="list-item"]')
+                                );
+                                
+                                if (hasListStructure) {
+                                    shouldMove = true;
+                                }
+                            }
+                        });
+                    });
+                    
+                    if (shouldMove) {
+                        setTimeout(function() {
+                            moveNewItemToTop(listContainer);
+                        }, 200);
+                    }
+                });
+                
+                // Start observing
+                observer.observe(listContainer, {
+                    childList: true,
+                    subtree: true
+                });
+                
+                observers.set(listContainer, observer);
+                
+                // Intercept add button clicks
+                const addButtons = listContainer.querySelectorAll('button');
+                addButtons.forEach(function(button) {
+                    const buttonText = (button.textContent || button.innerText || '').toLowerCase();
+                    if (buttonText.includes('add')) {
+                        // Use event delegation with capture phase to intercept early
+                        button.addEventListener('click', function(e) {
+                            // Let the default action happen first, then move item
+                            setTimeout(function() {
+                                moveNewItemToTop(listContainer);
+                            }, 300);
+                        }, true);
+                    }
+                });
+            }
+            
+            // Initialize customization for all list containers
+            function initListCustomization() {
+                const containers = findAllListContainers();
+                
+                containers.forEach(container => {
+                    setupListContainer(container);
+                });
+                
+                // If no containers found yet, retry after a delay
+                if (containers.length === 0) {
+                    setTimeout(initListCustomization, 500);
+                }
+            }
+            
+            // Initialize when CMS is ready
+            function waitForCMS() {
+                if (window.CMS) {
+                    // CMS is loaded, wait a bit for it to render
+                    setTimeout(initListCustomization, 1000);
+                } else {
+                    setTimeout(waitForCMS, 200);
+                }
+            }
+            
+            // Start initialization
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', waitForCMS);
+            } else {
+                waitForCMS();
+            }
+            
+            // Also try after window load
+            window.addEventListener('load', function() {
+                setTimeout(initListCustomization, 1500);
+            });
+            
+            // Re-initialize when navigating (for SPA behavior)
+            let lastUrl = location.href;
+            setInterval(function() {
+                if (location.href !== lastUrl) {
+                    lastUrl = location.href;
+                    processedContainers.clear();
+                    setTimeout(initListCustomization, 1000);
+                }
+            }, 1000);
+        })();
     </script>
 </body>
 </html>
