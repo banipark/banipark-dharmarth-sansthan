@@ -32,7 +32,7 @@ collections:
       - file: "data/gallery/gallery.json"
         label: "Gallery Images"
         name: "gallery"
-        media_folder: "images/gallery"
+        media_folder: "/images/gallery"
         public_folder: "/images/gallery"
         fields:
           - label: "Gallery Images"
@@ -54,7 +54,7 @@ collections:
       - file: "data/trustee/trustee.json"
         label: "Trustee Images"
         name: "trustees"
-        media_folder: "images/trustee"
+        media_folder: "/images/trustee"
         public_folder: "/images/trustee"
         fields:
           - label: "Trustee Images"
@@ -77,7 +77,7 @@ collections:
       - file: "data/faculty/faculty.json"
         label: "Faculty Images"
         name: "faculty"
-        media_folder: "images/faculty"
+        media_folder: "/images/faculty"
         public_folder: "/images/faculty"
         fields:
           - label: "Faculty Images"
