@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   branch: main # Change to 'master' if your default branch is master
-  publish_mode: editorial_workflow
+  publish_mode: simple  # Try simple: editorial_workflow merge step may fail with branch protection
 
 media_folder: "images"
 public_folder: "/images"
