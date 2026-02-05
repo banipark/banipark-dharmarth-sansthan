@@ -2,23 +2,8 @@
   "videos": [
     {
       "title": "MRDC celebrate Rajat Jayanti Samaroh 10th n 11th August, 2025",
-      "order": 3,
+      "order": "",
       "url": "https://www.youtube.com/watch?v=Bs2f2-yLPW4"
-    },
-    {
-      "title": "Banipark Dharmarth Sansthan Video 4",
-      "order": 5,
-      "url": "https://www.youtube.com/shorts/POOuQvtLcO0"
-    },
-    {
-      "url": "https://youtu.be/RIb_KTzH1uk?si=g0VwCdu6w0c7sWmU",
-      "title": "Banipark Dharmarth Sansthan Video 2",
-      "order": 2
-    },
-    {
-      "url": "https://youtu.be/RHVOyFJIss0?si=E5M9GkxoQxSOEKC-",
-      "title": "Banipark Dharmarth Sansthan Video 3",
-      "order": 3
     }
   ]
 }
