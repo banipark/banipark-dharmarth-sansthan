@@ -1,6 +1,11 @@
 {
   "images": [
     {
+      "alt": "Banipark Dharmarth Sansthan Facility",
+      "order": 0,
+      "image": "/images/gallery/nabl-certificate-mc-6409.jpg"
+    },
+    {
       "image": "/images/gallery/1.jpeg",
       "alt": "Banipark Dharmarth Sansthan Facility",
       "order": 2
